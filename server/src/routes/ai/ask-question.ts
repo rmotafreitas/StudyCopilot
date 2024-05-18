@@ -115,7 +115,7 @@ export const askQuestionRoute = async (app: FastifyInstance) => {
         content: [
           {
             type: "text",
-            text: `${prompt} '''Answer in less than ${chars} characters and rember that your output is in voice so dont use math symbols or latex syntax, just a clear string answer'''`,
+            text: `${prompt} '''Answer in less than ${chars} characters and rember that your output is in voice so dont use math symbols or latex syntax, just a clear human readable string answer'''`,
           },
           {
             type: "image_url",

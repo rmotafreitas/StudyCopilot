@@ -2,9 +2,9 @@ import { FastifyInstance } from "fastify";
 import { prisma } from "../../lib/prisma";
 import { z } from "zod";
 
-export const meUserWorkspaceRoute = async (app: FastifyInstance) => {
-  app.get(
-    "/auth/me/workspaces/:workspaceId",
+export const meUserHomeworkRoute = async (app: FastifyInstance) => {
+  app.post(
+    "/auth/me/homeworks",
     {
       preHandler: [app.authenticate],
     },
@@ -21,26 +21,23 @@ export const meUserWorkspaceRoute = async (app: FastifyInstance) => {
         });
       }
 
-      const paramsSchema = z.object({
+      const bodySchema = z.object({
         workspaceId: z.string(),
       });
 
       try {
-        paramsSchema.parse(request.params);
+        bodySchema.parse(request.body);
       } catch (error) {
         return reply.status(400).send({
-          error: "Invalid request params. Expected { workspaceId: string }",
+          error: "The workspaceId is required to be in the request body",
         });
       }
 
-      const { workspaceId } = paramsSchema.parse(request.params);
+      const { workspaceId } = bodySchema.parse(request.body);
 
       const workspace = await prisma.workspace.findUnique({
         where: {
           id: workspaceId,
-        },
-        include: {
-          Homework: true,
         },
       });
 
@@ -50,7 +47,22 @@ export const meUserWorkspaceRoute = async (app: FastifyInstance) => {
         });
       }
 
-      return reply.send(workspace);
+      const homework = await prisma.homework.create({
+        data: {
+          user: {
+            connect: {
+              id: user.id,
+            },
+          },
+          workspace: {
+            connect: {
+              id: workspace.id,
+            },
+          },
+        },
+      });
+
+      return reply.send(homework);
     }
   );
 };

@@ -24,13 +24,14 @@ model User {
 }
 
 model Workspace {
-  id          String   @id @unique @default(cuid())
+  id          String     @id @unique @default(cuid())
   name        String
   description String?
   image       String?
-  created_at  DateTime @default(now())
-  users       User     @relation(fields: [userId], references: [id])
+  created_at  DateTime   @default(now())
+  users       User       @relation(fields: [userId], references: [id])
   userId      String
+  Homework    Homework[]
 }
 
 model QuesionFromHomework {
@@ -44,9 +45,11 @@ model QuesionFromHomework {
 }
 
 model Homework {
-  id         String                @id @unique @default(cuid())
-  created_at DateTime              @default(now())
-  questions  QuesionFromHomework[]
-  user       User                  @relation(fields: [userId], references: [id])
-  userId     String
+  id          String                @id @unique @default(cuid())
+  created_at  DateTime              @default(now())
+  questions   QuesionFromHomework[]
+  user        User                  @relation(fields: [userId], references: [id])
+  userId      String
+  workspace   Workspace             @relation(fields: [workspaceId], references: [id])
+  workspaceId String
 }
