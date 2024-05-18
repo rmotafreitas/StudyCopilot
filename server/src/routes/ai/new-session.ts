@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { prisma } from "../../lib/prisma";
 import { z } from "zod";
 
-export const meUserHomeworkRoute = async (app: FastifyInstance) => {
+export const meUserHomeworkSessionRoute = async (app: FastifyInstance) => {
   app.post(
     "/auth/me/homeworks",
     {

@@ -1,5 +1,5 @@
 import api from "@/lib/api/api";
-import { IWorkspace } from "@/lib/hooks/useAuth";
+import { IHomeWork, IWorkspace } from "@/lib/hooks/useAuth";
 import { Mic, MicOff } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -16,9 +16,10 @@ const displayMediaOptions = {
 
 export interface MicButtonProps {
   workspace: IWorkspace;
+  homework: IHomeWork;
 }
 
-export function MicButton({ workspace }: MicButtonProps) {
+export function MicButton({ workspace, homework }: MicButtonProps) {
   const [isRecording, setIsRecording] = useState<boolean>(false);
 
   const handleMicClick = () => {
@@ -78,7 +79,7 @@ export function MicButton({ workspace }: MicButtonProps) {
         const resCompletion = await api.post("/ai/ask-question", {
           prompt: transcript,
           filename: screenshotFilename,
-          homeworkId: "clwcboqiw0000gf3guoiaowr1",
+          homeworkId: homework.id,
         });
         const completion = resCompletion.data.answer;
         console.log("Completion:", resCompletion);

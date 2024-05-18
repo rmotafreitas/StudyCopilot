@@ -19,6 +19,7 @@ export interface IWorkspace {
   name: string;
   description?: string;
   image?: string;
+  Homework: IHomeWork[];
 }
 
 export interface IQuestion {

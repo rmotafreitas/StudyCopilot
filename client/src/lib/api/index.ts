@@ -64,4 +64,19 @@ const getHomework = async (id: string): Promise<IHomeWork | null> => {
   return res.data;
 };
 
-export { auth, me, update, getWorkspace, getHomework };
+const createHomeworkSession = async (
+  workspace: IWorkspace
+): Promise<IHomeWork | null> => {
+  api.defaults.headers.Authorization = `Bearer ${Cookies.get("token")}`;
+  const res = await api.post(`/auth/me/homeworks`, {
+    workspaceId: workspace.id,
+  });
+
+  if (res.status !== 200) {
+    return null;
+  }
+
+  return res.data;
+};
+
+export { auth, me, update, getWorkspace, getHomework, createHomeworkSession };

@@ -40,7 +40,11 @@ export const meUserWorkspaceRoute = async (app: FastifyInstance) => {
           id: workspaceId,
         },
         include: {
-          Homework: true,
+          Homework: {
+            include: {
+              questions: true,
+            },
+          },
         },
       });
 

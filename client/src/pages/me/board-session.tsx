@@ -1,9 +1,9 @@
 import { WorkspaceParams } from "@/App";
 import { MicButton } from "@/components/mic-button";
 import { Navbar } from "@/components/navbar";
-import { getWorkspace } from "@/lib/api";
+import { createHomeworkSession, getWorkspace } from "@/lib/api";
 import { hankoApi } from "@/lib/hanko";
-import { IWorkspace, useAuth } from "@/lib/hooks/useAuth";
+import { IHomeWork, IWorkspace, useAuth } from "@/lib/hooks/useAuth";
 import { Excalidraw } from "@excalidraw/excalidraw";
 import { register } from "@teamhanko/hanko-elements";
 import { useEffect, useState } from "react";
@@ -14,6 +14,7 @@ export function MyBoardSessionPage() {
   const { id } = useParams<WorkspaceParams>();
   const { fetchUserFromCookies } = useAuth();
   const [workspace, setWorkspace] = useState<IWorkspace | null>(null);
+  const [homework, setHomework] = useState<IHomeWork | null>(null);
 
   useEffect(() => {
     fetchUserFromCookies().then((res) => {
@@ -35,6 +36,18 @@ export function MyBoardSessionPage() {
       }
 
       setWorkspace(res);
+
+      // create homework session
+      createHomeworkSession(res).then((res) => {
+        if (!res) {
+          router("/me/workspaces");
+          return;
+        }
+
+        console.log(res);
+
+        setHomework(res);
+      });
     });
 
     register(hankoApi).catch((error) => {
@@ -44,7 +57,8 @@ export function MyBoardSessionPage() {
   }, []);
 
   return (
-    workspace && (
+    workspace &&
+    homework && (
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <section className="flex flex-col justify-center items-center gap-4 pt-8 px-8 pb-4">
@@ -53,7 +67,7 @@ export function MyBoardSessionPage() {
           </div>
         </section>
         <div className="flex flex-row justify-center items-center px-8 pb-4">
-          <MicButton workspace={workspace} />
+          <MicButton homework={homework} workspace={workspace} />
         </div>
       </div>
     )

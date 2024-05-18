@@ -57,7 +57,7 @@ export function App() {
                   element={<MyBoardSessionPage />}
                 />
                 <Route
-                  path="/me/workspaces/:id/board-session/view"
+                  path="/me/workspaces/:workspace/board-session/:id"
                   element={<MyHomeworkPage />}
                 />
                 <Route path="*" element={<NotFoundPage />} />

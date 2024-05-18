@@ -75,6 +75,21 @@ export function MyWorkspacePage() {
               >
                 Click here to Start a new homework session!
               </Link>
+              <p>Old homeworks!</p>
+              <div className="flex flex-col gap-2">
+                {workspace.Homework.map(
+                  (homework) =>
+                    homework.questions.length > 0 && (
+                      <Link
+                        to={`/me/workspaces/${workspace.id}/board-session/${homework.id}`}
+                        key={homework.id}
+                        className="text-primary"
+                      >
+                        {homework.created_at}
+                      </Link>
+                    )
+                )}
+              </div>
             </TabsContent>
             <TabsContent value="chat">Chat</TabsContent>
             <TabsContent value="files">Files</TabsContent>
