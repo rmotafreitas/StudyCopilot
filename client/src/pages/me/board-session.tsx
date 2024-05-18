@@ -4,17 +4,16 @@ import { Navbar } from "@/components/navbar";
 import { getWorkspace } from "@/lib/api";
 import { hankoApi } from "@/lib/hanko";
 import { IWorkspace, useAuth } from "@/lib/hooks/useAuth";
-import { register } from "@teamhanko/hanko-elements";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { Excalidraw } from "@excalidraw/excalidraw";
+import { register } from "@teamhanko/hanko-elements";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function MyBoardSessionPage() {
   const router = useNavigate();
   const { id } = useParams<WorkspaceParams>();
   const { fetchUserFromCookies } = useAuth();
   const [workspace, setWorkspace] = useState<IWorkspace | null>(null);
-  const excalidrawAPI = useRef(null);
 
   useEffect(() => {
     fetchUserFromCookies().then((res) => {
@@ -48,16 +47,12 @@ export function MyBoardSessionPage() {
     workspace && (
       <div className="flex flex-col min-h-screen">
         <Navbar />
-        <section className="flex flex-col justify-center items-center mt-8 gap-4 p-8">
-          <p>Workspace: {workspace?.name}</p>
-          <p>Board</p>
-          <div className="border-4 border-primary rounded-lg overflow-hidden h-[720px] w-full">
-            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-            {/* @ts-expect-error */}
-            <Excalidraw ref={excalidrawAPI} />
+        <section className="flex flex-col justify-center items-center gap-4 pt-8 px-8 pb-4">
+          <div className="border-4 border-primary rounded-lg overflow-hidden h-[800px] w-full">
+            <Excalidraw />
           </div>
         </section>
-        <div className="fixed bottom-4 right-4">
+        <div className="flex flex-row justify-center items-center px-8 pb-4">
           <MicButton workspace={workspace} />
         </div>
       </div>

@@ -7,7 +7,7 @@ import { hankoApi } from "@/lib/hanko";
 import { IWorkspace, useAuth } from "@/lib/hooks/useAuth";
 import { register } from "@teamhanko/hanko-elements";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export function MyWorkspacePage() {
   const router = useNavigate();
@@ -67,7 +67,15 @@ export function MyWorkspacePage() {
                 Files
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="homework">Homework</TabsContent>
+            <TabsContent value="homework">
+              <p>Homework!</p>
+              <Link
+                to={`/me/workspaces/${workspace.id}/board-session`}
+                className="text-primary"
+              >
+                Click here to Start a new homework session!
+              </Link>
+            </TabsContent>
             <TabsContent value="chat">Chat</TabsContent>
             <TabsContent value="files">Files</TabsContent>
           </Tabs>

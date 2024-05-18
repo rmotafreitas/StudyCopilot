@@ -186,7 +186,7 @@ export function MicButton({ workspace }: MicButtonProps) {
 
   return (
     <button
-      className="flex items-center justify-center w-fit h-12 p-4 gap-2 rounded-full bg-primary"
+      className="z-10 flex items-center justify-center w-fit h-12 p-4 gap-2 rounded-full bg-primary"
       onClick={handleMicClick}
     >
       <Icon size={24} className="text-white" />
