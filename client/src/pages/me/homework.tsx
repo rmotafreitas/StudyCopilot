@@ -50,7 +50,10 @@ export function MyHomeworkPage() {
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <section className="flex-1 flex flex-col items-center my-4">
-          <p>Homework: {homework?.id}</p>
+          <p className="text-2xl font-bold">
+            Homework from {new Date(homework.created_at).toLocaleDateString()}
+            {" 📅"}
+          </p>
           {homework?.questions.map((question) => (
             <>
               <HomeworkQuestion key={question.id} {...question} />
