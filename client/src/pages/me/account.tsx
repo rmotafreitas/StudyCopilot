@@ -11,7 +11,7 @@ import { LogOutIcon, SaveIcon } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function ProfilePage() {
+export function MyAccountPage() {
   const router = useNavigate();
   const { user, signOut, fetchUserFromCookies, save, me } = useAuth();
   const [newUser, setNewUser] = useState<User | null>(null);

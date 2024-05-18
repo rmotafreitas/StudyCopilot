@@ -12,6 +12,9 @@ export const meUserRoute = async (app: FastifyInstance) => {
         where: {
           id: request.user.id,
         },
+        include: {
+          Workspace: true,
+        },
       });
 
       if (!user) {

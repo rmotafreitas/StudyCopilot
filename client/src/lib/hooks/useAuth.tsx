@@ -14,9 +14,17 @@ type AuthData = {
   me: () => Promise<User | null>;
 };
 
+export interface IWorkspace {
+  id: string;
+  name: string;
+  description?: string;
+  image?: string;
+}
+
 export type User = {
   email: string;
   name: string;
+  Workspace: IWorkspace[];
   // Add more user-related fields as needed
 };
 

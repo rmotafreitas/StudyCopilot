@@ -9,13 +9,13 @@ export function Navbar() {
   return (
     <nav className="flex px-8 py-4 justify-between w-full items-center border-border border-b-2">
       <Link to="/" className="text-primary font-bold text-2xl">
-        LoremIpsum
+        Study Copilot
       </Link>
       <ul className="flex gap-5 items-center">
         <ModeToggle />
         <li className="text-lg font-semibold">
           <Button>
-            <Link to={user ? "/me" : "/auth"}>
+            <Link to={user ? "/me/workspaces" : "/auth"}>
               {user ? "My Space" : "Login"}
             </Link>
           </Button>

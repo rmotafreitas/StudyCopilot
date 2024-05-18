@@ -8,7 +8,7 @@ export function HomePage() {
         <div className="max-w-3xl flex flex-col justify-center items-start gap-3 p-10">
           <h1 className="text-4xl font-bold">
             Lorem ipsum dolor sit, amet consectetur adipisicing.
-            <span className="text-primary">Lorem, ipsum dolor.</span>
+            <span className="text-primary"> Lorem, ipsum dolor.</span>
           </h1>
           <h2 className="text-2xl text-foreground opacity-70">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur

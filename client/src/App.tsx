@@ -8,11 +8,18 @@ import { SuccessContext } from "./lib/contexts/success.context";
 import { AuthProvider } from "./lib/hooks/useAuth";
 import { HomePage } from "./pages";
 import { LoginPage } from "./pages/Login";
-import { ProfilePage } from "./pages/me";
+import { MyAccountPage } from "./pages/me/account";
 import { NotFoundPage } from "./pages/NotFound";
+import { MyWorkspacesPage } from "./pages/me/workspaces";
+import { MyWorkspacePage } from "./pages/me/workspace";
+import { MyHomeworkPage } from "./pages/me/homework";
 
-export type TradeParams = {
-  tradeId: string;
+export type WorkspaceParams = {
+  id: string;
+};
+
+export type HomeworkParams = {
+  id: string;
 };
 
 export function App() {
@@ -38,7 +45,13 @@ export function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/auth" element={<LoginPage />} />
-                <Route path="/me" element={<ProfilePage />} />
+                <Route path="/me/account" element={<MyAccountPage />} />
+                <Route path="/me/workspaces" element={<MyWorkspacesPage />} />
+                <Route
+                  path="/me/workspaces/:id"
+                  element={<MyWorkspacePage />}
+                />
+                <Route path="/me/homeworks/:id" element={<MyHomeworkPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </Router>
