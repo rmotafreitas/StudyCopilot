@@ -21,6 +21,19 @@ export interface IWorkspace {
   image?: string;
 }
 
+export interface IQuestion {
+  id: string;
+  prompt: string;
+  answer: string;
+  screenshot?: string;
+}
+
+export interface IHomeWork {
+  id: string;
+  created_at: string;
+  questions: IQuestion[];
+}
+
 export type User = {
   email: string;
   name: string;

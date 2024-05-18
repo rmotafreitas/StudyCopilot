@@ -115,7 +115,7 @@ export const askQuestionRoute = async (app: FastifyInstance) => {
         content: [
           {
             type: "text",
-            text: `${prompt} '''Answer in less than ${chars} characters'''`,
+            text: `${prompt} '''Answer in less than ${chars} characters and rember that your output is in voice so dont use math symbols or latex syntax, just a clear string answer'''`,
           },
           {
             type: "image_url",
@@ -131,7 +131,7 @@ export const askQuestionRoute = async (app: FastifyInstance) => {
         temperature,
         messages,
         stream: false,
-        max_tokens: 800,
+        max_tokens: tokens * 2,
       });
 
       const newQuestion = await prisma.quesionFromHomework.create({

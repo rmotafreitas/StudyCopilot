@@ -12,7 +12,7 @@ export function WorkspaceCard({ id, name, description, image }: IWorkspace) {
         <img
           src={`${api.getUri()}/uploads/${image}`}
           alt={name}
-          className="w-full h-48 object-cover"
+          className="w-96 h-48 object-cover"
         />
         <h3 className="text-xl font-semibold mt-4">{name}</h3>
         <p className="text-foreground mt-2">{description}</p>

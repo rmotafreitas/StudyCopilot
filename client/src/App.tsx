@@ -13,6 +13,7 @@ import { NotFoundPage } from "./pages/NotFound";
 import { MyWorkspacesPage } from "./pages/me/workspaces";
 import { MyWorkspacePage } from "./pages/me/workspace";
 import { MyHomeworkPage } from "./pages/me/homework";
+import { MyBoardSessionPage } from "./pages/me/board-session";
 
 export type WorkspaceParams = {
   id: string;
@@ -50,6 +51,10 @@ export function App() {
                 <Route
                   path="/me/workspaces/:id"
                   element={<MyWorkspacePage />}
+                />
+                <Route
+                  path="/me/workspaces/:id/board-session"
+                  element={<MyBoardSessionPage />}
                 />
                 <Route path="/me/homeworks/:id" element={<MyHomeworkPage />} />
                 <Route path="*" element={<NotFoundPage />} />

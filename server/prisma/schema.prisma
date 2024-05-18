@@ -20,6 +20,7 @@ model User {
   created_at  DateTime    @default(now())
   workspaceId String?
   Workspace   Workspace[]
+  Homework    Homework[]
 }
 
 model Workspace {
@@ -46,4 +47,6 @@ model Homework {
   id         String                @id @unique @default(cuid())
   created_at DateTime              @default(now())
   questions  QuesionFromHomework[]
+  user       User                  @relation(fields: [userId], references: [id])
+  userId     String
 }

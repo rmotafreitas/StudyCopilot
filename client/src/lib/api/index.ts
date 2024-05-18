@@ -1,6 +1,6 @@
 // @ts-expect-error Because we are using js-cookie
 import Cookies from "js-cookie";
-import { IWorkspace, User } from "../hooks/useAuth";
+import { IHomeWork, IWorkspace, User } from "../hooks/useAuth";
 import api from "./api";
 
 const auth = async (login: string, password: string): Promise<boolean> => {
@@ -53,4 +53,15 @@ const getWorkspace = async (id: string): Promise<IWorkspace | null> => {
   return res.data;
 };
 
-export { auth, me, update, getWorkspace };
+const getHomework = async (id: string): Promise<IHomeWork | null> => {
+  api.defaults.headers.Authorization = `Bearer ${Cookies.get("token")}`;
+  const res = await api.get(`/auth/me/homeworks/${id}`);
+
+  if (res.status !== 200) {
+    return null;
+  }
+
+  return res.data;
+};
+
+export { auth, me, update, getWorkspace, getHomework };
