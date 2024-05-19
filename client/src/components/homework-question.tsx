@@ -46,8 +46,12 @@ function AnswerOrQuestion({
   isAnswer: boolean;
 }) {
   return (
-    <p className={`text-2xl font-semibold ${isAnswer ? "text-primary" : ""}`}>
-      {`${isAnswer ? "Copilot" : "You"}: ${text}`}
+    <p
+      className={`text-2xl bg-muted p-4 rounded-md font-semibold ${
+        isAnswer ? "text-primary" : ""
+      }`}
+    >
+      {`${isAnswer ? "Copilot 🤖" : "You 😀"}: ${text}`}
     </p>
   );
 }

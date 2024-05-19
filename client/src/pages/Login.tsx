@@ -22,7 +22,7 @@ export function LoginPage() {
       console.log(hankoUser);
       console.log(hankoCookie);
       signIn(hankoUser.email, hankoCookie);
-      router("/me");
+      router("/me/workspaces");
     }
   };
 
@@ -47,8 +47,7 @@ export function LoginPage() {
       <Navbar />
       <section className="flex flex-1 flex-col justify-center gap-20 items-center">
         <h1 className="font-bold text-5xl text-center">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-          Asperiores...
+          Just login and you're good to go!
         </h1>
         <hanko-auth />
       </section>

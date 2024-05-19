@@ -4,7 +4,7 @@ import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 
 export function Navbar() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   return (
     <nav className="flex px-8 py-4 justify-between w-full items-center border-border border-b-2">
@@ -20,6 +20,15 @@ export function Navbar() {
             </Link>
           </Button>
         </li>
+        {user && (
+          <li className="text-lg font-semibold">
+            <Button className="bg-red-500">
+              <Link to="/auth" onClick={signOut}>
+                Logout
+              </Link>
+            </Button>
+          </li>
+        )}
       </ul>
     </nav>
   );
