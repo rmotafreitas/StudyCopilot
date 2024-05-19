@@ -1,6 +1,6 @@
 import api from "@/lib/api/api";
 import { IHomeWork, IWorkspace } from "@/lib/hooks/useAuth";
-import { Mic, MicOff } from "lucide-react";
+import { Mic, MicOff, Save } from "lucide-react";
 import { useEffect, useState } from "react";
 
 let mediaRecorder: MediaRecorder;
@@ -21,6 +21,7 @@ export interface MicButtonProps {
 
 export function MicButton({ workspace, homework }: MicButtonProps) {
   const [isRecording, setIsRecording] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleMicClick = () => {
     if (isRecording) {
@@ -44,6 +45,7 @@ export function MicButton({ workspace, homework }: MicButtonProps) {
       };
 
       mediaRecorder.onstop = async function () {
+        setLoading(true);
         const blob = new Blob(chunks, { type: "audio/mp3" });
         chunks = [];
 
@@ -101,12 +103,16 @@ export function MicButton({ workspace, homework }: MicButtonProps) {
             const audio = new Audio(audioURL);
             audio.play();
             console.log("Speech generated!");
+
+            setIsRecording(false);
+            setLoading(false);
           })
           .catch((error) => {
             console.error("Error fetching audio:", error);
-          });
 
-        setIsRecording(false);
+            setIsRecording(false);
+            setLoading(false);
+          });
       };
 
       mediaRecorder.start();
@@ -186,20 +192,43 @@ export function MicButton({ workspace, homework }: MicButtonProps) {
   }, []);
 
   return (
-    <button
-      className="z-10 flex items-center justify-center w-fit h-12 p-4 gap-2 rounded-full bg-primary"
-      onClick={handleMicClick}
-    >
-      <Icon size={24} className="text-white" />
-      <div className="flex flex-col items-start justify-center">
-        <p className="text-white text-lg font-semibold">
-          {isRecording ? "Click to stop" : "Click to start"}
-        </p>
-        <p className="text-white text-sm">
-          {isRecording ? "Recording" : "Not recording"}
-        </p>
-      </div>
-      <video id="video" autoPlay style={{ display: "none" }} />
-    </button>
+    <>
+      <button
+        className={`z-10 flex items-center justify-center w-fit h-12 p-4 gap-2 rounded-full bg-primary
+      ${loading ? "cursor-wait opacity-80" : "cursor-pointer"}
+      `}
+        disabled={loading}
+        onClick={handleMicClick}
+      >
+        <Icon size={24} className="text-white" />
+        <div className="flex flex-col items-start justify-center">
+          <p className="text-white text-lg font-semibold">
+            {isRecording ? "Click to stop" : "Click to start"}
+          </p>
+          <p className="text-white text-sm">
+            {isRecording
+              ? "Recording"
+              : loading
+              ? "Processing..."
+              : "Not recording"}
+          </p>
+        </div>
+        <video id="video" autoPlay style={{ display: "none" }} />
+      </button>
+      <button
+        className="z-10 flex items-center justify-center w-fit h-12 p-4 gap-2 rounded-full ml-4 bg-muted-foreground"
+        onClick={() => {
+          stopRecording();
+          stopCapture();
+          window.location.href = `/me/workspaces/${workspace.id}`;
+        }}
+      >
+        <Save size={24} className="text-white" />
+        <div className="flex flex-col items-start justify-center">
+          <p className="text-white text-lg font-semibold">Save and exit</p>
+        </div>
+        <video id="video" autoPlay style={{ display: "none" }} />
+      </button>
+    </>
   );
 }

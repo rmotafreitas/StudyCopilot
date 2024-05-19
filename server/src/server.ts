@@ -30,6 +30,10 @@ import { meUserWorkspaceRoute } from "./routes/auth/workspace";
 import { askQuestionRoute } from "./routes/ai/ask-question";
 import { meUserHomeworkRoute } from "./routes/auth/homework";
 import { meUserHomeworkSessionRoute } from "./routes/ai/new-session";
+import { meUserCreateWorkspaceRoute } from "./routes/auth/create-workspace";
+import { meUserUpdateWorkspaceRoute } from "./routes/auth/update-workspace";
+import { meUserDeleteWorkspaceRoute } from "./routes/auth/delete-workspace";
+import { meUserDeleteHomeworkRoute } from "./routes/auth/delete-homework";
 
 // jwt
 app.register(fjwt, { secret: process.env.JWT_SECRET || "supersecret" });
@@ -81,6 +85,10 @@ app.register(meUserWorkspaceRoute);
 app.register(askQuestionRoute);
 app.register(meUserHomeworkRoute);
 app.register(meUserHomeworkSessionRoute);
+app.register(meUserCreateWorkspaceRoute);
+app.register(meUserUpdateWorkspaceRoute);
+app.register(meUserDeleteWorkspaceRoute);
+app.register(meUserDeleteHomeworkRoute);
 
 app.register(fastifystatic, {
   root: path.join(__dirname, "..", "uploads"),

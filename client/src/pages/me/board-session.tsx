@@ -1,6 +1,7 @@
 import { WorkspaceParams } from "@/App";
 import { MicButton } from "@/components/mic-button";
 import { Navbar } from "@/components/navbar";
+import { useTheme } from "@/components/theme-provider";
 import { createHomeworkSession, getWorkspace } from "@/lib/api";
 import { hankoApi } from "@/lib/hanko";
 import { IHomeWork, IWorkspace, useAuth } from "@/lib/hooks/useAuth";
@@ -56,6 +57,8 @@ export function MyBoardSessionPage() {
     });
   }, []);
 
+  const { theme } = useTheme();
+
   return (
     workspace &&
     homework && (
@@ -63,7 +66,15 @@ export function MyBoardSessionPage() {
         <Navbar />
         <section className="flex flex-col justify-center items-center gap-4 pt-8 px-8 pb-4">
           <div className="border-4 border-primary rounded-lg overflow-hidden h-[800px] w-full">
-            <Excalidraw />
+            <Excalidraw
+              theme={
+                theme === "system"
+                  ? window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light"
+                  : theme
+              }
+            />
           </div>
         </section>
         <div className="flex flex-row justify-center items-center px-8 pb-4">

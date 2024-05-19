@@ -37,7 +37,7 @@ model Workspace {
 model QuesionFromHomework {
   id         String    @id @unique @default(cuid())
   created_at DateTime  @default(now())
-  Homework   Homework? @relation(fields: [homeworkId], references: [id])
+  Homework   Homework? @relation(fields: [homeworkId], references: [id], onDelete: SetNull)
   homeworkId String?
   prompt     String?   @db.LongText
   answer     String?   @db.LongText
@@ -50,6 +50,6 @@ model Homework {
   questions   QuesionFromHomework[]
   user        User                  @relation(fields: [userId], references: [id])
   userId      String
-  workspace   Workspace             @relation(fields: [workspaceId], references: [id])
+  workspace   Workspace             @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   workspaceId String
 }
